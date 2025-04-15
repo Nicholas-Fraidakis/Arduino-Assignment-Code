@@ -36,17 +36,28 @@ bool beep(void) {
   static int upper_bounds[] = {1023, 1010, 515, 10};
 
   // Asserts that the size of the notes, lower_bounds, and upper_bounds are equal
-  static_assert(sizeof(lower_bounds) == sizeof(upper_bounds) && sizeof(lower_bounds) == sizeof(notes), "Oh noes");
+  static_assert(
+    sizeof(lower_bounds) == sizeof(upper_bounds) 
+    && sizeof(lower_bounds) == sizeof(notes), 
+    "There are amount of notes, upper_bounds, and lower_bounds are unequal!"
+  );
 
+  // Checks all upper and lower bounds and plays that note if true
   for (uint8_t i = 0; i < sizeof(lower_bounds)/sizeof(int); i++) {
     if (keyVal < lower_bounds[i] || keyVal > upper_bounds[i]) continue;
 
+    // Plays it in D8
     tone(8, notes[i]);
+
     return true;
   }
+
   return false;
 }
+
 void loop() {
   if (beep()) return;
+
+  // If no beep is detected, there is no tone
   noTone(8);
 }
