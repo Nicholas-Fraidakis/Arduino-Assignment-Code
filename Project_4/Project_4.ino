@@ -68,7 +68,7 @@ void HandleRGBArray(int * target, void (*RGBAdjustFunc)(int * target, int pin), 
 {
   for (int i = 0; i < 3; i++)
   {
-    RGBAdjustFunc(target + i, i + startPin);
+    RGBAdjustFunc(target + i, startPin + i);
   }
 }
 
@@ -86,8 +86,8 @@ RGBArrayFunc(readSensors)
 RGBArrayFunc(setEpekValue)
 {
   // Gets the index value based off getting the difference of the target and Val's mem address
-  // This works because we know at comp-time that we will only 
-  uint8_t index = (uint32_t)(target - Val);
+  // This works because we know at comp-time that we will only
+  uint16_t index = (uint16_t)(target - Val) / sizeof(int);
 
   // Safety check to avoid memory errors
   if (index >= 3)
