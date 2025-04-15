@@ -26,12 +26,25 @@ void setup() {
   Serial.begin(9600);
 }
 
+/*
+  Returns true if note is played, false if not,
+  Also this is called beep instead of note because
+  beep sounds cooler :D
+*/
 bool beep(void) {
   // Reads the key input
   int keyVal = analogRead(A0);
 
   Serial.print("Key = ");
   Serial.println(keyVal);
+
+  /*
+    This is better in static memory instead of pushing
+    it to stack memory every time is wasteful so we use
+    statically allocated memory bc that's epic
+  */
+
+  // I could have used one array of an anonymous struct instead of three arrays but nah
 
   static int notes[] = {262, 294, 330, 349};
   static int lower_bounds[] = {1023, 990, 505, 5};
@@ -46,7 +59,7 @@ bool beep(void) {
   );
 
   // Checks all upper and lower bounds and plays that note if true
-  for (uint8_t i = 0; i < sizeof(lower_bounds)/sizeof(int); i++) {
+  for (uint8_t i = 0; i < sizeof(lower_bounds) / sizeof(int); i++) {
     if (keyVal < lower_bounds[i] || keyVal > upper_bounds[i]) continue;
 
     // Plays it in D8
@@ -55,12 +68,13 @@ bool beep(void) {
     return true;
   }
 
+  // The beep ain't beeping
   return false;
 }
 
 void loop() {
   if (beep()) return;
 
-  // If no beep is detected, there is no tone
+  // If no note is played, so the tone is zeroed
   noTone(PIEZOPIN);
 }
