@@ -28,7 +28,7 @@ bool beep(void) {
   // Reads the key input
   int keyVal = analogRead(A0);
 
-  Serial.print"Key = ");
+  Serial.print("Key = ");
   Serial.println(keyVal);
 
   static int notes[] = {262, 294, 330, 349};
@@ -36,6 +36,7 @@ bool beep(void) {
   static int upper_bounds[] = {1023, 1010, 515, 10};
 
   // Asserts that the size of the notes, lower_bounds, and upper_bounds are equal
+  // This is to avoid a unsafe condition bc that would lead to undefined behavior
   static_assert(
     sizeof(lower_bounds) == sizeof(upper_bounds) 
     && sizeof(lower_bounds) == sizeof(notes), 
