@@ -60,9 +60,12 @@ bool beep(void) {
 
   // Checks all upper and lower bounds and plays that note if true
   for (uint8_t i = 0; i < sizeof(lower_bounds) / sizeof(int); i++) {
+    
+    // If it's not this note we go to the next iteration and keep looking
     if (keyVal < lower_bounds[i] || keyVal > upper_bounds[i]) continue;
 
-    // Plays it in D8
+
+    // If we found the note we plays it in D8
     tone(PIEZOPIN, notes[i]);
 
     return true;
