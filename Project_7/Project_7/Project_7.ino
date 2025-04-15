@@ -20,6 +20,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#define PIEZOPIN 8
+
 void setup() {
   Serial.begin(9600);
 }
@@ -48,7 +50,7 @@ bool beep(void) {
     if (keyVal < lower_bounds[i] || keyVal > upper_bounds[i]) continue;
 
     // Plays it in D8
-    tone(8, notes[i]);
+    tone(PIEZOPIN, notes[i]);
 
     return true;
   }
@@ -60,5 +62,5 @@ void loop() {
   if (beep()) return;
 
   // If no beep is detected, there is no tone
-  noTone(8);
+  noTone(PIEZOPIN);
 }
