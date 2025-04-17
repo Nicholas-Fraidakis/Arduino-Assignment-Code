@@ -47,8 +47,8 @@ bool beep(void) {
   // I could have used one array of an anonymous struct instead of three arrays but nah
 
   static int notes[] = {262, 294, 330, 349};
-  static int lower_bounds[] = {1023, 990, 505, 5};
-  static int upper_bounds[] = {1023, 1010, 515, 10};
+  static int lower_bounds[] = {1023, 1010, 968, 650};
+  static int upper_bounds[] = {1023, 1020, 978, 670};
 
   // Asserts that the size of the notes, lower_bounds, and upper_bounds are equal
   // This is to avoid a unsafe condition bc that would lead to undefined behavior
